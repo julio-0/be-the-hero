@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import logoImg from '../../assets/logo.svg';
-import heroesImg from '../../assets/heroes.png';
+import {injectIntl, FormattedMessage} from 'react-intl';
+
 import { FiLogIn } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom'
+
 import api from '../../services/api';
+import logoImg from '../../assets/logo.svg';
+import heroesImg from '../../assets/heroes.png';
 
 import './styles.css';
 
-export default function Logon() {
+const Logon = ({intl}) => {
   const [id, setId] = useState('');
   const history = useHistory();
 
+  
   async function handleLogin(e){
     e.preventDefault();
 
@@ -23,7 +27,7 @@ export default function Logon() {
 
       history.push('/profile');
     } catch (error) {
-      alert('Falha no login, tente novamente!');
+      alert(intl.formatMessage({id: 'Logon.logInFail'}));
     }
 
   }
@@ -34,17 +38,17 @@ export default function Logon() {
         <img src={logoImg} alt="Be The Hero" />
 
         <form onSubmit={handleLogin}>
-            <h1>Faça seu Logon</h1>
+            <h1><FormattedMessage id="Logon.logInLabel"/></h1>
             <input
-              placeholder="Sua ID" 
+              placeholder={intl.formatMessage({id: 'Logon.logInInput'})} 
               value={id}
               onChange={e => setId(e.target.value)}
             />
-            <button className="button" type="submit">Entrar</button>
+            <button className="button" type="submit"><FormattedMessage id="Logon.logInButton"/> </button>
 
             <Link className='back-link' to="/register">
                 < FiLogIn size={16} color="#e02041" />
-                Não tenho cadastro
+                <FormattedMessage id="Logon.noAccount"/>
             </Link>
         </form>
 
@@ -53,3 +57,4 @@ export default function Logon() {
     </div>
   );
 }
+export default injectIntl(Logon);

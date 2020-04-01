@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {injectIntl, FormattedMessage} from 'react-intl';
 import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi'
 import logoImg from '../../assets/logo.svg';
@@ -6,7 +7,8 @@ import api from '../../services/api';
 
 import './styles.css';
 
-export default function Register() {
+
+const Register = ({intl}) => {     
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [whatsapp, setWhatsapp] = useState('');
@@ -29,10 +31,11 @@ export default function Register() {
 
         try {
             const response = await api.post('ongs', data);
-            alert(`Seu ID de acesso: ${response.data.id}`);    
+            //alert(`Seu ID de acesso: ${response.data.id}`);    
+            alert(intl.formatMessage({id: 'Register.idCreated'}) + `${response.data.id}`);
             history.push('/');
         } catch (err) {
-            alert('Erro no cadastro, tente novamente');
+            alert(intl.formatMessage({id: 'Register.createFail'}));
         }
 
     }
@@ -42,56 +45,54 @@ export default function Register() {
         <div className="content">
             <section>
                 <img src={logoImg} alt="Be The Hero" />
-                <h1>Cadastro</h1>
-                <p>Faça seu Cadastro, entre na plataforma e ajude pessoas
-                    a encontrarem os casos da sus ONG.
+                <h1><FormattedMessage id="Register.title" /></h1>
+                <p><FormattedMessage id="Register.instructions" />
                 </p>
                 <Link className="back-link" to="/">
                     < FiArrowLeft size={16} color="#e02041" />
-                    Já tenho cadastro
+                    <FormattedMessage id="Register.backLogon" />
                 </Link>
 
             </section>
             <form onSubmit={handleRegister}>
                 <input 
                     type="text" 
-                    placeholder="Nome da ONG" 
+                    placeholder={intl.formatMessage({id: 'Register.namePlaceHolder'})}
                     value={name}
                     onChange={e=> setName(e.target.value)}
                 />
                 <input 
                     type="email" 
-                    placeholder="E-mail" 
+                    placeholder={intl.formatMessage({id: 'Register.emailPlaceHolder'})}
                     value={email}
                     onChange={e=> setEmail(e.target.value)}
                 />
                 <input 
                     type="text" 
-                    placeholder="Whatsapp" 
+                    placeholder={intl.formatMessage({id: 'Register.whatsappPlaceHolder'})}
                     value={whatsapp}
                     onChange={e=> setWhatsapp(e.target.value)}
                 />
                 <div className="input-group">
                     <input 
                     type="text" 
-                    placeholder="Cidade" 
+                    placeholder={intl.formatMessage({id: 'Register.cityPlaceHolder'})}
                     value={city}
                     onChange={e=> setCity(e.target.value)}
                     />
                     <input 
                     type="text" 
-                    placeholder="UF" 
+                    placeholder={intl.formatMessage({id: 'Register.statePlaceHolder'})}
                     style={{ width: 80 }} 
                     value={uf}
                     onChange={e=> setUf(e.target.value)}
                     />
                 </div>
 
-                <button className="button" type="submit">Cadastrar</button>
+                <button className="button" type="submit"><FormattedMessage id="Register.buttonCreate" /></button>
             </form>
         </div>
     </div>
   );
 }
-
-
+export default injectIntl(Register);

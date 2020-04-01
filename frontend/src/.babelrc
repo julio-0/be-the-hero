@@ -1,0 +1,22 @@
+  {
+    "plugins": [
+      [
+        "react-intl", {
+          "messagesDir": "./public/messages/"
+        }
+      ],
+      [
+        "react-intl-extractor",
+        {
+          "extractedFile": "./src/translations/aggregated.json",
+          "langFiles": [{
+            "path": "./src/translations/ru.json",
+            "cleanUpNewMessages": false
+          }, {
+            "path": "./src/translations/en.json",
+            "cleanUpNewMessages": true
+          }]
+        }
+      ]
+    ]
+  }

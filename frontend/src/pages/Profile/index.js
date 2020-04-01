@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import {injectIntl, FormattedMessage} from 'react-intl';
 import { FiPower, FiTrash2 } from 'react-icons/fi'
 import logoImg from '../../assets/logo.svg';
 import api from '../../services/api';
 import './styles.css';
 
-export default function Profile() {
+const Profile = ({intl}) => { 
     const [incidents, setIncidents] = useState([]);
     const history = useHistory();
 
@@ -30,7 +31,7 @@ export default function Profile() {
             });
             setIncidents(incidents.filter(incident => incident.id !== id ) );
         } catch (error) {
-            alert('Erro ao deletar o caso, tente novamente.')
+            alert(intl.formatMessage({id: 'Profile.deleteFail'}));
         }
     }
 
@@ -43,9 +44,9 @@ export default function Profile() {
     <div className="profile-container">
         <header>
             <img src={logoImg} alt="Be The Hero" />
-            <span>Bem vinda, {ongName}</span>
+            <span><FormattedMessage id="Profile.welcome" />{ongName}</span>
             <Link className="button" to="/incidents/new">
-                    Cadastrar Novo Caso
+            <FormattedMessage id="Profile.newIncident" />
             </Link>            
             <button type="button" onClick={handleLogout}>
                 <FiPower size={18} color="#e02041" />
@@ -53,18 +54,18 @@ export default function Profile() {
 
         </header>
         
-        <h1>Casos Cadastrados</h1>
+        <h1><FormattedMessage id="Profile.incidentList" /></h1>
 
         <ul>
             {incidents.map(incident =>(
                 <li key={incident.id}>
-                    <strong>Caso</strong>
+                    <strong><FormattedMessage id="Profile.incidentTitle" /></strong>
                     <p>{incident.title}</p>
 
-                    <strong>Descrição</strong>
+                    <strong><FormattedMessage id="Profile.incidentDescription" /></strong>
                     <p>{incident.description}</p>
 
-                    <strong>Valor</strong>
+                    <strong><FormattedMessage id="Profile.incidentValue" /></strong>
                     <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL'}).format(incident.value) } </p>
 
                     <button type="button" onClick={() => handleDeleteIncident(incident.id)}>
@@ -77,5 +78,4 @@ export default function Profile() {
     </div>
   );
 }
-
-
+export default injectIntl(Profile);
