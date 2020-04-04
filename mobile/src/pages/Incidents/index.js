@@ -8,12 +8,18 @@ import api from '../../services/api';
 import logoImg from '../../assets/logo.png';
 import styles from './styles';
 
+import LocalizationContext from '../../services/LocalizationContext';
+
 export default function Incidents(){
     const [incidents, setIncidents] = useState([]);
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
+
+    const { t } = React.useContext(LocalizationContext);
+    //const { t, i18n } = React.useContext(LocalizationContext);
+    //const { t, locale, setLocale } = React.useContext(LocalizationContext);
 
     function navigateToDetail(incident){
         navigation.navigate('Detail', { incident });
@@ -36,24 +42,27 @@ export default function Incidents(){
         setPage(page + 1);
 
         setLoading(false);
+
     }
 
     useEffect(() => {
         loadIncidents();
-    }), [];
 
+
+
+    }), [];
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Image source={logoImg} />
                 <Text style={styles.headerText}>
-                    Total de <Text style={styles.headerTextBold}>{total} casos </Text>
+                    {t('incidentTotalLabel')} <Text style={styles.headerTextBold}>{total} {t('incidents')} </Text>
                 </Text>
             </View>
 
-            <Text style={styles.title}>Bem-Vindo!</Text>
-            <Text style={styles.description}>Escolha um dos casos abaixo e salve o dia:</Text>
+            <Text style={styles.title}>{t('welcome')}</Text>
+            <Text style={styles.description}>{t('selectIncident')}</Text>
 
             <FlatList 
                 data={incidents} 
@@ -64,22 +73,22 @@ export default function Incidents(){
                 onEndReachedThreshold={0.1}
                 renderItem={({ item: incident }) => (
                     <View style={styles.incident}>
-                        <Text style={styles.incidentProperty}>ONG:</Text>
-                <Text style={styles.incidentValue}>{incident.name} de {incident.city}/{incident.uf} </Text>
+                        <Text style={styles.incidentProperty}>{t('NGO')}</Text>
+                <Text style={styles.incidentValue}>{incident.name} {t('_of_')} {incident.city}/{incident.uf} </Text>
 
-                        <Text style={styles.incidentProperty}>CASO:</Text>
+                        <Text style={styles.incidentProperty}>{t('incident')}</Text>
                         <Text style={styles.incidentValue}>{incident.title}</Text>
 
-                        <Text style={styles.incidentProperty}>VALOR:</Text>
-                        <Text style={styles.incidentValue}>{ Intl.NumberFormat('pt-BR', {
-                             style: 'currency', currency: 'BRL' 
+                        <Text style={styles.incidentProperty}>{t('value')}</Text>
+                        <Text style={styles.incidentValue}>{ Intl.NumberFormat(`${t('language')}`, {
+                             style: 'currency', currency: `${t('currency')}` 
                              } ).format(incident.value) }
                         </Text>
 
                         <TouchableOpacity 
                             style={styles.detailsButton} 
                             onPress={() => navigateToDetail(incident)} >
-                                <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
+                                <Text style={styles.detailsButtonText}>{t('toDetails')}</Text>
                                 <Feather name="arrow-right" size={16} color="#e02041" />
                         </TouchableOpacity>
                     </View> 

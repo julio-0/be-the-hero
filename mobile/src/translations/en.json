@@ -1,0 +1,20 @@
+{
+    "language": "en",
+    "currency": "USD",
+    "incidentTotalLabel": "Total of",
+    "incidents": "incidents",
+    "welcome": "Welcome!",
+    "selectIncident": "Choose one incident below and save the day:",
+    "NGO": "NGO",
+    "_of_": "of",
+    "incident": "INCIDENT",
+    "value": "VALUE",
+    "toDetails": "More Details",
+    "message": "Hello {{name}}, I’m getting in touch with you as I’d like to help with the {{title}} incident  with {{value}} ",
+    "heroSubject": "Hero of the incident:",
+    "saveTheDay": "Save the day!",
+    "beHero": "Be the Hero in this incident.",
+    "contact": "Contact",
+    "whatsapp": "Whatsapp",
+    "email": "E-mail"    
+}
