@@ -4,6 +4,8 @@ This sample app was created at the event "Semana Omnistack" 11th edition, a week
 
 ![](images/bethehero_webapp.gif)
 
+<img src="images/bethehero_mobile.gif" height="500">
+
 ## Authors
 
 - [Julio Oliveira](https://github.com/julio-0)
@@ -27,7 +29,7 @@ It is an application developed for learning purposes, presenting a portfolio and
 
 ## The idea
 
-The goal is to provide an app that engages volunteers to help financially a charity and contribute with causes like abandoned or injured animals. This allows "Heroes" to contact NGOs and donate money or offer volunteer work to help in specific cases.
+The goal is to provide an app that engages volunteers to help financially a charity and contribute with causes like taking care of abandoned or injured animals. This allows "Heroes" to contact NGOs and donate money or offer volunteer work to help in specific cases.
 
 ## How it works
 
