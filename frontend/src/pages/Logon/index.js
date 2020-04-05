@@ -7,11 +7,14 @@ import { Link, useHistory } from 'react-router-dom'
 import api from '../../services/api';
 import logoImg from '../../assets/logo.svg';
 import heroesImg from '../../assets/heroes.png';
+import { login } from "../../services/auth";
 
 import './styles.css';
 
 const Logon = ({intl}) => {
   const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+
   const history = useHistory();
 
   
@@ -19,11 +22,12 @@ const Logon = ({intl}) => {
     e.preventDefault();
 
     try {
-      const response = await api.post('sessions', { id });
-      localStorage.setItem('ongId', id);
-      localStorage.setItem('ongName', response.data.name);
+      const response = await api.post('sessions', { id, password });
+      //localStorage.setItem('ongId', id);
+      localStorage.setItem('ongName', response.data.ong.name);
+      login(response.data.token);
 
-      console.log(response.data.name);
+      console.log(response.data.ong.name);
 
       history.push('/profile');
     } catch (error) {
@@ -43,6 +47,12 @@ const Logon = ({intl}) => {
               placeholder={intl.formatMessage({id: 'Logon.logInInput'})} 
               value={id}
               onChange={e => setId(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder={intl.formatMessage({id: 'Logon.password'})} 
+              value={password}
+              onChange={e => setPassword( e.target.value )}
             />
             <button className="button" type="submit"><FormattedMessage id="Logon.logInButton"/> </button>
 

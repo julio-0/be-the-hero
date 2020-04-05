@@ -5,28 +5,30 @@ import { FiPower, FiTrash2 } from 'react-icons/fi'
 import logoImg from '../../assets/logo.svg';
 import api from '../../services/api';
 import './styles.css';
+import { getToken, logout } from "../../services/auth";
 
 const Profile = ({intl}) => { 
     const [incidents, setIncidents] = useState([]);
     const history = useHistory();
 
-    const ongId = localStorage.getItem('ongId');
+    const token = getToken();
+    //const ongId = localStorage.getItem('ongId');
     const ongName = localStorage.getItem('ongName');
     useEffect(() => {
         api.get('profile', {
             headers: {
-                Authorization: ongId,
+                Authorization: `Bearer ${token}`,
             }
         }).then(response => {
             setIncidents(response.data);
         });
-    }, [ongId]);
+    }, [token]);
 
     async function handleDeleteIncident(id){
         try {
           await api.delete(`incidents/${id}`, {
             headers: {
-                Authorization: ongId,
+                Authorization: `Bearer ${token}`,
                 }
             });
             setIncidents(incidents.filter(incident => incident.id !== id ) );
@@ -36,6 +38,7 @@ const Profile = ({intl}) => {
     }
 
     function handleLogout(){
+        logout();
         localStorage.clear();
         history.push('/');
     }

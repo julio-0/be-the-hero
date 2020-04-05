@@ -13,8 +13,8 @@ const messages = {
 };
 
 const language = messages[navigator.language] ? navigator.language : navigator.language.split(/[-_]/)[0];  
-const locale = messages[language] ? language : 'en';  
-//const locale = 'en';
+//const locale = messages[language] ? language : 'en';  
+const locale = 'en';
 
 ReactDOM.render(
 

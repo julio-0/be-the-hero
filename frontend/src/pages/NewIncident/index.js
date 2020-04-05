@@ -6,13 +6,15 @@ import { FiArrowLeft } from 'react-icons/fi'
 import logoImg from '../../assets/logo.svg';
 import api from '../../services/api';
 import './styles.css';
+import { getToken } from "../../services/auth";
 
 //export default function Register() {
 const NewIncident = ({intl}) => { 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [value, setValue] = useState('');
-    const ongId = localStorage.getItem('ongId');
+    //const ongId = localStorage.getItem('ongId');
+    const token = getToken();
     const history = useHistory();
 
     async function handleNewIncident(e){
@@ -27,7 +29,7 @@ const NewIncident = ({intl}) => {
         try {
             await api.post('incidents', data, {
                 headers: {
-                    Authorization: ongId,
+                    Authorization: `Bearer ${token}`,
                 }
             });
             history.push('/profile');

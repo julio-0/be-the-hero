@@ -20,7 +20,11 @@
     margin-top: 100px;
 }
 
+.logon-container section.form input {
+    margin-top: 8px;
+}
+
 .logon-container section.form h1{
     font-size: 32px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }

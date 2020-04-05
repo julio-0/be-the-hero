@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi'
 import logoImg from '../../assets/logo.svg';
 import api from '../../services/api';
+import { login } from "../../services/auth";
 
 import './styles.css';
 
@@ -11,6 +12,7 @@ import './styles.css';
 const Register = ({intl}) => {     
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [whatsapp, setWhatsapp] = useState('');
     const [city, setCity] = useState('');
     const [uf, setUf] = useState('');
@@ -23,6 +25,7 @@ const Register = ({intl}) => {
         const data = {
             name, 
             email,
+            password,
             whatsapp,
             city,
             uf,
@@ -31,7 +34,9 @@ const Register = ({intl}) => {
 
         try {
             const response = await api.post('ongs', data);
-            //alert(`Seu ID de acesso: ${response.data.id}`);    
+            //alert(`Seu ID de acesso: ${response.data.id}`);   
+            login(response.data.token);
+ 
             alert(intl.formatMessage({id: 'Register.idCreated'}) + `${response.data.id}`);
             history.push('/');
         } catch (err) {
@@ -73,6 +78,13 @@ const Register = ({intl}) => {
                     value={whatsapp}
                     onChange={e=> setWhatsapp(e.target.value)}
                 />
+                <input
+                    type="password"
+                    placeholder={intl.formatMessage({id: 'Register.pwdPlaceHolder'})}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+
                 <div className="input-group">
                     <input 
                     type="text" 
