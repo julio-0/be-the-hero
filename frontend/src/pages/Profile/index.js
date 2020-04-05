@@ -69,7 +69,12 @@ const Profile = ({intl}) => {
                     <p>{incident.description}</p>
 
                     <strong><FormattedMessage id="Profile.incidentValue" /></strong>
-                    <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL'}).format(incident.value) } </p>
+                    <p>
+                    
+                    { Intl.NumberFormat(`${intl.formatMessage({id: 'language'})}`, {
+                             style: 'currency', currency: `${intl.formatMessage({id: 'currency'})}` 
+                             } ).format(incident.value) }                    
+                    </p>
 
                     <button type="button" onClick={() => handleDeleteIncident(incident.id)}>
                         <FiTrash2 size={20} color="#a8a8b3" />

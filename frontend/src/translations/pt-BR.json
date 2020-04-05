@@ -1,4 +1,6 @@
 {
+    "language": "pt-BR",
+    "currency": "BRL",
     "Logon.logInFail": "Falha no Log in, tente novamente!",
     "Logon.logInLabel": "Informe seu ID",
     "Logon.logInButton": "Entrar",

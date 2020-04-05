@@ -1,4 +1,6 @@
 {
+    "language": "en",
+    "currency": "USD",
     "Logon.logInFail": "Login fail, try again!",
     "Logon.logInLabel": "Log In",
     "Logon.logInButton": "Log In",
