@@ -2,6 +2,8 @@
 
 This sample app was created at the event "Semana Omnistack" 11th edition, a week-long coding challenge organized by [Rocketseat](https://rocketseat.com.br/), with some modifications.
 
+![](images/bethehero_webapp.gif)
+
 ## Authors
 
 - [Julio Oliveira](https://github.com/julio-0)
