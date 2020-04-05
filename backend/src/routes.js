@@ -25,6 +25,19 @@ routes.post('/ongs', celebrate({
     })
 }) , ongcontroller.create);
 
+routes.put('/ongs', celebrate({
+    [Segments.HEADERS] : Joi.object({
+        authorization: Joi.string().required(),
+    }).unknown(),
+    [Segments.BODY] : Joi.object().keys({
+        name: Joi.string().required(),
+        email: Joi.string().required().email(),
+        whatsapp: Joi.string().required().min(10).max(13),
+        city: Joi.string().required(),
+        uf: Joi.string().required().length(2),
+    })
+}) , authMid, ongcontroller.update);
+
 routes.get('/incidents', celebrate({
     [Segments.QUERY] : Joi.object().keys({
         page: Joi.number(),
